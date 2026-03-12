@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Chuyến Thái Lan 2025</title>
+
+<!-- PWA -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Thái Lan 2025">
+<meta name="application-name" content="Thái Lan 2025">
+<meta name="theme-color" content="#1a2744">
+<meta name="description" content="Ứng dụng quản lý chuyến du lịch Thái Lan cho cả gia đình">
+<link rel="manifest" href="manifest.json">
+
+<!-- App icons (inline SVG as data URI so no extra files needed) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231a2744'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle' font-family='serif'%3E🌺%3C/text%3E%3Ctext x='256' y='460' font-size='68' text-anchor='middle' font-family='sans-serif' font-weight='bold' fill='%23e4c97a'%3EThái Lan%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231a2744'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle' font-family='serif'%3E🌺%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a2744;
+  --navy-mid: #243156;
+  --gold: #c9a84c;
+  --gold-light: #e4c97a;
+  --cream: #f8f5ef;
+  --white: #ffffff;
+  --border: #e2ddd4;
+  --text: #1a2744;
+  --text-mid: #4a5568;
+  --text-soft: #8a93a8;
+  --red: #c0392b;
+  --green: #1a6645;
+  --green-light: #e8f5ee;
+  --orange: #d97706;
+  --blue: #2563eb;
+  --shadow: 0 2px 16px rgba(26,39,68,0.10);
+  --shadow-lg: 0 8px 32px rgba(26,39,68,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* HEADER */
+.app-header {
+  background: var(--navy);
+  color: white;
+  padding: 14px 16px 0;
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: var(--shadow-lg);
+}
+.header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.app-title {
+  font-size: 17px; font-weight: 800; letter-spacing: 0.3px;
+  color: var(--gold-light);
+}
+.app-subtitle { font-size: 11px; opacity: 0.55; margin-top: 1px; color: white; }
+.header-actions { display: flex; gap: 8px; }
+.hbtn {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  color: white; border-radius: 8px; padding: 6px 12px; font-size: 11px;
+  font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; cursor: pointer;
+  transition: background 0.2s;
+}
+.hbtn:hover { background: rgba(255,255,255,0.2); }
+.currency-toggle {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.ctbtn {
+  padding: 6px 11px; font-size: 11px; font-weight: 700; cursor: pointer;
+  background: none; border: none; color: rgba(255,255,255,0.6);
+  font-family: 'Be Vietnam Pro', sans-serif; transition: all 0.2s;
+}
+.ctbtn.active { background: var(--gold); color: var(--navy); }
+
+/* NAV */
+.nav-tabs { display: flex; }
+.nav-tab {
+  flex: 1; padding: 10px 4px; text-align: center; font-size: 11px; font-weight: 600;
+  cursor: pointer; border-bottom: 2px solid transparent; color: rgba(255,255,255,0.5);
+  background: none; border-radius: 0; transition: all 0.2s;
+  font-family: 'Be Vietnam Pro', sans-serif; letter-spacing: 0.2px;
+}
+.nav-tab.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+/* MAIN */
+.main { padding: 16px 14px 90px; max-width: 700px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* CARD */
+.card {
+  background: white; border-radius: 14px; padding: 16px;
+  box-shadow: var(--shadow); margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.card-header {
+  font-size: 13px; font-weight: 700; color: var(--navy);
+  margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-header-left { display: flex; align-items: center; gap: 8px; }
+
+/* ===== SECTION: QUỸ ===== */
+.fund-hero {
+  background: var(--navy);
+  border-radius: 14px; padding: 20px; color: white; margin-bottom: 14px;
+  position: relative; overflow: hidden;
+}
+.fund-hero::before {
+  content: ''; position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: rgba(201,168,76,0.15);
+}
+.fund-hero-label { font-size: 11px; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.fund-hero-amount { font-size: 32px; font-weight: 800; color: var(--gold-light); }
+.fund-hero-amount sup { font-size: 16px; font-weight: 600; opacity: 0.8; }
+.fund-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.fund-stat { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; }
+.fund-stat-label { font-size: 10px; opacity: 0.6; margin-bottom: 3px; }
+.fund-stat-value { font-size: 16px; font-weight: 700; color: var(--gold-light); }
+
+.family-contribution-card { margin-bottom: 14px; }
+.contrib-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.contrib-row:last-child { border-bottom: none; }
+.contrib-family { font-weight: 700; font-size: 14px; min-width: 70px; }
+.contrib-sub { font-size: 11px; color: var(--text-soft); }
+.contrib-bar-wrap { flex: 1; }
+.contrib-bar { height: 6px; background: #e9e4d8; border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+.contrib-fill { height: 100%; border-radius: 3px; transition: width 0.6s; }
+.contrib-amounts { font-size: 12px; font-weight: 600; }
+.contrib-amounts .paid { color: var(--green); }
+.contrib-amounts .total { color: var(--text-soft); }
+.contrib-status {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+  white-space: nowrap;
+}
+.status-done { background: var(--green-light); color: var(--green); }
+.status-partial { background: #fef3c7; color: var(--orange); }
+.status-pending { background: #fee2e2; color: var(--red); }
+
+.contrib-edit-row { display: flex; gap: 8px; align-items: center; margin-top: 6px; }
+
+/* SPENDING LOG */
+.spending-item {
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.spending-item:last-child { border-bottom: none; }
+.spending-cat {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--cream); display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.spending-info { flex: 1; min-width: 0; }
+.spending-name { font-weight: 600; font-size: 14px; }
+.spending-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
+.spending-note { font-size: 11px; color: var(--text-mid); margin-top: 3px; font-style: italic; }
+.spending-amount { text-align: right; flex-shrink: 0; }
+.spending-amount .main-amt { font-size: 15px; font-weight: 700; color: var(--navy); }
+.spending-amount .sub-amt { font-size: 11px; color: var(--text-soft); }
+.del-btn { background: none; border: none; color: var(--border); cursor: pointer; font-size: 16px; padding: 2px 4px; transition: color 0.2s; }
+.del-btn:hover { color: var(--red); }
+
+/* ===== SECTION: LỊCH TRÌNH ===== */
+.day-pill {
+  background: var(--navy); color: var(--gold-light);
+  border-radius: 10px; padding: 10px 14px;
+  font-size: 13px; font-weight: 700; margin-bottom: 10px; margin-top: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.day-pill:first-child { margin-top: 0; }
+.event-row {
+  display: flex; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.event-row:last-child { border-bottom: none; }
+.event-time { min-width: 44px; font-size: 12px; font-weight: 600; color: var(--gold); text-align: right; padding-top: 1px; }
+.event-line { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 0 8px; }
+.event-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--navy); flex-shrink: 0; margin-top: 4px; }
+.event-vline { flex: 1; width: 1px; background: var(--border); min-height: 20px; }
+.event-body { flex: 1; padding-bottom: 8px; }
+.event-title { font-weight: 700; font-size: 14px; }
+.event-place { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+.event-note { font-size: 11px; color: var(--text-mid); margin-top: 4px; background: var(--cream); border-radius: 6px; padding: 5px 8px; }
+.event-booking { font-size: 11px; color: var(--blue); font-weight: 600; margin-top: 3px; }
+.event-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-top: 4px; background: #eff6ff; color: var(--blue); }
+
+/* ===== SECTION: GỢI Ý & BẢN ĐỒ ===== */
+.rec-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.rec-tab {
+  padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1.5px solid var(--border); background: white; cursor: pointer;
+  transition: all 0.2s; color: var(--text-mid);
+}
+.rec-tab.active { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+
+.rec-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--border); align-items: flex-start;
+}
+.rec-item:last-child { border-bottom: none; }
+.rec-emoji { font-size: 28px; flex-shrink: 0; width: 44px; text-align: center; }
+.rec-info { flex: 1; }
+.rec-name { font-weight: 700; font-size: 14px; }
+.rec-desc { font-size: 12px; color: var(--text-mid); margin-top: 2px; }
+.rec-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+.rec-tag { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--cream); color: var(--text-mid); font-weight: 600; }
+.rec-price { font-size: 11px; color: var(--green); font-weight: 700; margin-top: 3px; }
+.add-to-itinerary-btn {
+  background: var(--navy); color: white; border: none; border-radius: 8px;
+  padding: 6px 10px; font-size: 11px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; font-family: 'Be Vietnam Pro', sans-serif;
+  transition: background 0.2s;
+}
+.add-to-itinerary-btn:hover { background: var(--gold); color: var(--navy); }
+
+/* MAP */
+.map-container {
+  border-radius: 12px; overflow: hidden; height: 320px;
+  border: 1px solid var(--border); background: #e8e0d4;
+  position: relative; margin-bottom: 14px;
+}
+.map-placeholder {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: var(--text-soft);
+  font-size: 13px; gap: 8px; background: #f0ece4;
+}
+.map-iframe { width: 100%; height: 100%; border: none; }
+
+.map-legend { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.map-pin { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-mid); }
+
+/* ===== SECTION: GIA ĐÌNH ===== */
+.member-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.member-row:last-child { border-bottom: none; }
+.member-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--navy); color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; flex-shrink: 0;
+}
+.member-info { flex: 1; }
+.member-name { font-weight: 700; font-size: 14px; }
+.member-family { font-size: 11px; color: var(--text-soft); }
+.member-phone { font-size: 12px; color: var(--blue); }
+.member-note { font-size: 11px; color: var(--orange); }
+
+.checklist-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+}
+.checklist-row:last-child { border-bottom: none; }
+.checklist-row input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--navy); cursor: pointer; flex-shrink: 0; }
+.checklist-row label { font-size: 13px; flex: 1; cursor: pointer; }
+.checklist-row.done label { text-decoration: line-through; color: var(--text-soft); }
+
+/* FORMS */
+.form-group { margin-bottom: 11px; }
+.form-label { font-size: 11px; font-weight: 700; color: var(--text-mid); margin-bottom: 4px; display: block; text-transform: uppercase; letter-spacing: 0.4px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+  border-radius: 10px; font-family: 'Be Vietnam Pro', sans-serif; font-size: 14px;
+  background: var(--cream); color: var(--text); transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none; border-color: var(--navy); background: white;
+}
+.form-textarea { resize: vertical; min-height: 70px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 20px; border-radius: 10px; font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+.btn-primary { background: var(--navy); color: white; width: 100%; }
+.btn-primary:hover { background: #243156; }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-light); }
+.btn-outline { background: transparent; border: 1.5px solid var(--navy); color: var(--navy); }
+.btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 8px; }
+.btn-xs { padding: 5px 9px; font-size: 11px; border-radius: 6px; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(10,20,50,0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: white; border-radius: 20px 20px 0 0; padding: 20px 16px 32px;
+  width: 100%; max-width: 700px; max-height: 88vh; overflow-y: auto;
+  transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
+.modal-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+
+/* FAB */
+.fab {
+  position: fixed; bottom: 80px; right: 16px; width: 52px; height: 52px;
+  background: var(--gold); color: var(--navy); border-radius: 50%; border: none;
+  font-size: 24px; font-weight: 700; cursor: pointer; z-index: 90;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.5);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fab:hover { transform: scale(1.08); box-shadow: 0 6px 20px rgba(201,168,76,0.6); }
+.fab:active { transform: scale(0.95); }
+
+/* MISC */
+.empty { text-align: center; padding: 32px 20px; color: var(--text-soft); font-size: 13px; }
+.badge { background: var(--navy); color: white; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+.badge-gold { background: var(--gold); color: var(--navy); }
+.toast {
+  position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white; padding: 10px 20px; border-radius: 20px;
+  font-size: 13px; z-index: 3000; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  font-weight: 600; box-shadow: var(--shadow-lg);
+}
+.toast.show { opacity: 1; }
+
+.section-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+
+.info-box {
+  background: linear-gradient(135deg, #fef9ec, #fdf3d0);
+  border: 1px solid var(--gold); border-radius: 10px;
+  padding: 10px 12px; font-size: 12px; color: var(--text-mid); margin-bottom: 14px;
+}
+.info-box strong { color: var(--gold); }
+
+/* SHARING GUIDE */
+.share-step {
+  display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.share-step:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--navy);
+  color: var(--gold-light); font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+.step-text strong { color: var(--navy); }
+
+/* Progress circle */
+.prog-circle { position: relative; display: inline-block; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-top">
+    <div>
+      <div class="app-title">Chuyến Thái Lan 2025</div>
+      <div class="app-subtitle" id="headerSub">Gia đình 3 nhà · 8 người</div>
+    </div>
+    <div class="header-actions">
+      <div class="currency-toggle">
+        <button class="ctbtn active" id="btnTHB" onclick="setCurrency('THB')">THB</button>
+        <button class="ctbtn" id="btnVND" onclick="setCurrency('VND')">VND</button>
+      </div>
+      <button class="hbtn" onclick="exportData()">Xuất</button>
+    </div>
+  </div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('fund')" id="tab-fund">Quỹ</button>
+    <button class="nav-tab" onclick="switchTab('itinerary')" id="tab-itinerary">Lịch Trình</button>
+    <button class="nav-tab" onclick="switchTab('recs')" id="tab-recs">Gợi Ý</button>
+    <button class="nav-tab" onclick="switchTab('map')" id="tab-map">Bản Đồ</button>
+    <button class="nav-tab" onclick="switchTab('family')" id="tab-family">Gia Đình</button>
+  </nav>
+</header>
+
+<main class="main">
+
+<!-- ===== QUỸ ===== -->
+<section id="section-fund" class="section active">
+  <div class="fund-hero">
+    <div class="fund-hero-label">Tổng Quỹ Chuyến Đi</div>
+    <div class="fund-hero-amount" id="heroTotal"><sup id="heroCur">VND </sup><span id="heroAmt">0</span></div>
+    <div id="heroSub" style="font-size:11px;opacity:0.5;margin-top:4px;"></div>
+    <div class="fund-hero-grid">
+      <div class="fund-stat"><div class="fund-stat-label">Đã thu được</div><div class="fund-stat-value" id="heroCollected">0</div></div>
+      <div class="fund-stat"><div class="fund-stat-label">Chưa nộp đủ</div><div class="fund-stat-value" id="heroShortfall" style="color:#fca5a5;">0</div></div>
+      <div class="fund-stat"><div class="fund-stat-label">Đã chi</div><div class="fund-stat-value" id="heroSpent">0</div></div>
+      <div class="fund-stat"><div class="fund-stat-label">Quỹ còn lại</div><div class="fund-stat-value" id="heroBalance" style="color:#86efac;">0</div></div>
+    </div>
+  </div>
+
+  <!-- Rate -->
+  <div class="info-box">
+    <strong>Tỷ giá:</strong> <span id="rateDisplay">1 THB = — VND</span>
+    &nbsp;·&nbsp; <span style="cursor:pointer;color:var(--gold);font-weight:700;" onclick="openModal('rateModal')">Cập nhật</span>
+  </div>
+
+  <!-- Contributions per family -->
+  <div class="card">
+    <div class="card-header">
+      <span>Đóng Góp Từng Gia Đình</span>
+      <button class="btn btn-sm btn-gold" onclick="openContribModal()">Cập nhật</button>
+    </div>
+    <div id="contribRows"></div>
+  </div>
+
+  <!-- Spending log -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span>Chi Tiêu Thực Tế</span>
+        <span class="badge" id="spendCount">0</span>
+      </div>
+      <button class="btn btn-sm btn-outline" onclick="openAddSpend()">+ Thêm</button>
+    </div>
+    <div id="spendingList"></div>
+  </div>
+</section>
+
+<!-- ===== LỊCH TRÌNH ===== -->
+<section id="section-itinerary" class="section">
+  <div id="itineraryView">
+    <div class="empty">Chưa có lịch trình.<br>Nhấn + để thêm hoặc chọn từ tab Gợi Ý.</div>
+  </div>
+</section>
+
+<!-- ===== GỢI Ý ===== -->
+<section id="section-recs" class="section">
+  <div class="section-title">Gợi Ý Cho Chuyến Đi</div>
+  <div class="rec-tabs">
+    <button class="rec-tab active" onclick="setRecTab('food')">Ẩm Thực</button>
+    <button class="rec-tab" onclick="setRecTab('attraction')">Tham Quan</button>
+    <button class="rec-tab" onclick="setRecTab('activity')">Hoạt Động</button>
+    <button class="rec-tab" onclick="setRecTab('shopping')">Mua Sắm</button>
+  </div>
+  <div class="card" style="padding:0 16px;">
+    <div id="recList"></div>
+  </div>
+</section>
+
+<!-- ===== BẢN ĐỒ ===== -->
+<section id="section-map" class="section">
+  <div class="section-title">Bản Đồ</div>
+  <div class="rec-tabs" id="mapCityTabs">
+    <button class="rec-tab active" onclick="setMapCity('bangkok')">Bangkok</button>
+    <button class="rec-tab" onclick="setMapCity('chiangmai')">Chiang Mai</button>
+    <button class="rec-tab" onclick="setMapCity('phuket')">Phuket</button>
+    <button class="rec-tab" onclick="setMapCity('pattaya')">Pattaya</button>
+  </div>
+  <div class="map-container">
+    <iframe id="mapFrame" class="map-iframe"
+      src="https://www.google.com/maps/embed/v1/search?q=Bangkok+Thailand+attractions&key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY"
+      allowfullscreen loading="lazy">
+    </iframe>
+  </div>
+  <div class="card">
+    <div class="card-header"><span>Địa Điểm Quan Trọng</span></div>
+    <div id="mapPlaces" style="padding-bottom:4px;"></div>
+    <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="openModal('addPlaceModal')">+ Thêm địa điểm</button>
+  </div>
+</section>
+
+<!-- ===== GIA ĐÌNH ===== -->
+<section id="section-family" class="section">
+  <div class="card">
+    <div class="card-header">
+      <span>Thành Viên</span>
+      <button class="btn btn-sm btn-gold" onclick="openModal('memberModal')">+ Thêm</button>
+    </div>
+    <div id="memberList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>Danh Sách Cần Chuẩn Bị</span></div>
+    <div id="checklistEl"></div>
+    <div style="display:flex;gap:8px;margin-top:10px;">
+      <input class="form-input" id="newCheckText" placeholder="Thêm đồ cần mang...">
+      <button class="btn btn-gold btn-sm" onclick="addCheck()">+</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>Số Khẩn Cấp Tại Thái</span></div>
+    <div style="font-size:13px;line-height:2.4;color:var(--text-mid);">
+      Cảnh sát: <strong style="color:var(--navy);">191</strong> &nbsp;·&nbsp;
+      Cứu thương: <strong style="color:var(--navy);">1669</strong> &nbsp;·&nbsp;
+      Cứu hỏa: <strong style="color:var(--navy);">199</strong><br>
+      Cảnh sát du lịch: <strong style="color:var(--navy);">1155</strong><br>
+      Sân bay Suvarnabhumi: <strong style="color:var(--navy);">+66 2 132 1888</strong><br>
+      Sân bay Don Mueang: <strong style="color:var(--navy);">+66 2 535 1192</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>Hướng Dẫn Chia Sẻ Cho Cả Đoàn</span></div>
+
+    <div style="background:linear-gradient(135deg,#fef9ec,#fdf3d0);border:1px solid var(--gold);border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:var(--text-mid);">
+      <strong style="color:var(--navy);">Ví dụ thực tế:</strong> Bưởi vừa cập nhật nhà Huyền đã nộp đủ 45M, và thêm khách sạn mới vào lịch trình. Bây giờ Bưởi muốn gửi bản mới nhất cho cả 8 người trong đoàn.
+    </div>
+
+    <div style="font-weight:700;font-size:12px;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Trên điện thoại (Android / iPhone)</div>
+    <div class="share-step">
+      <div class="step-num">1</div>
+      <div class="step-text">Nhấn nút <strong>"Xuất"</strong> ở góc trên phải. Điện thoại sẽ tải về file <strong>.json</strong> (thường nằm trong thư mục Tải về / Downloads).</div>
+    </div>
+    <div class="share-step">
+      <div class="step-num">2</div>
+      <div class="step-text">Mở <strong>Zalo</strong> → vào nhóm chat của đoàn → nhấn biểu tượng đính kèm file → tìm và chọn file vừa tải → Gửi.</div>
+    </div>
+    <div class="share-step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Người nhận</strong> (ví dụ nhà Huệ) nhấn giữ file trong Zalo → chọn <strong>"Tải về"</strong> → sau đó mở ứng dụng này → vào tab <strong>Gia Đình</strong> → cuộn xuống cuối → nhấn <strong>"Nhập dữ liệu từ file JSON"</strong> → chọn file vừa tải. Xong!</div>
+    </div>
+
+    <div style="font-weight:700;font-size:12px;color:var(--navy);margin:14px 0 10px;text-transform:uppercase;letter-spacing:0.5px;">Trên máy tính (laptop / PC)</div>
+    <div class="share-step">
+      <div class="step-num">1</div>
+      <div class="step-text">Nhấn nút <strong>"Xuất"</strong> → file tự tải về thư mục <strong>Downloads</strong> trên máy tính.</div>
+    </div>
+    <div class="share-step">
+      <div class="step-num">2</div>
+      <div class="step-text">Mở <strong>Zalo Web</strong> (zalo.me) hoặc Facebook Messenger trên trình duyệt → vào nhóm → đính kèm file → gửi.</div>
+    </div>
+    <div class="share-step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Người nhận trên máy tính:</strong> Tải file về → mở ứng dụng này trên trình duyệt → tab Gia Đình → <strong>"Nhập dữ liệu"</strong> → chọn file. Dữ liệu mới hiện ra ngay.</div>
+    </div>
+
+    <div style="font-weight:700;font-size:12px;color:var(--navy);margin:14px 0 10px;text-transform:uppercase;letter-spacing:0.5px;">Lưu như app trên màn hình chính</div>
+    <div class="share-step">
+      <div class="step-num">A</div>
+      <div class="step-text"><strong>iPhone/iPad:</strong> Mở file trong Safari → nhấn biểu tượng Chia sẻ (hình vuông + mũi tên) → chọn <strong>"Thêm vào Màn hình chính"</strong> → nhấn Thêm. Sau đó mở như app bình thường.</div>
+    </div>
+    <div class="share-step">
+      <div class="step-num">B</div>
+      <div class="step-text"><strong>Android:</strong> Mở file trong Chrome → nhấn dấu 3 chấm (góc phải trên) → chọn <strong>"Thêm vào màn hình chính"</strong> → Thêm. Icon xuất hiện như app.</div>
+    </div>
+
+    <div style="margin-top:14px;padding:11px 13px;background:var(--green-light);border-radius:10px;font-size:12px;color:var(--green);line-height:1.8;">
+      <strong>Lưu ý quan trọng:</strong> Mỗi người lưu dữ liệu riêng trên máy của mình. Khi có thay đổi (thêm chi tiêu, cập nhật lịch...), người quản lý chỉ cần <strong>Xuất → Gửi lại</strong> cho cả nhóm. Ai nhận thì nhấn Nhập để cập nhật bản của mình.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>Ghi Chú Chung</span></div>
+    <textarea class="form-textarea" id="sharedNotes" style="min-height:100px;" placeholder="Dị ứng thức ăn, sở thích, ghi nhớ chung..." oninput="saveNotes()"></textarea>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span>Tiếng Thái Thông Dụng</span></div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">Giao tiếp cơ bản</div>
+    <div style="font-size:12px;line-height:2.2;color:var(--text-mid);margin-bottom:12px;">
+      <strong style="color:var(--navy);">Xin chào</strong> → Sawasdee kha/krub (สวัสดีค่ะ/ครับ) — nữ dùng "kha", nam dùng "krub"<br>
+      <strong style="color:var(--navy);">Cảm ơn</strong> → Khob khun kha/krub (ขอบคุณ)<br>
+      <strong style="color:var(--navy);">Xin lỗi / Thứ lỗi</strong> → Kho thot (ขอโทษ)<br>
+      <strong style="color:var(--navy);">Có / Không có</strong> → Mee / Mai mee (มี / ไม่มี)<br>
+      <strong style="color:var(--navy);">Được / Không được</strong> → Dai / Mai dai (ได้ / ไม่ได้)<br>
+      <strong style="color:var(--navy);">Tôi không hiểu</strong> → Mai khao jai (ไม่เข้าใจ)
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">Ăn uống</div>
+    <div style="font-size:12px;line-height:2.2;color:var(--text-mid);margin-bottom:12px;">
+      <strong style="color:var(--navy);">Ngon lắm!</strong> → Aroy mak! (อร่อยมาก)<br>
+      <strong style="color:var(--navy);">Không cay</strong> → Mai phet (ไม่เผ็ด)<br>
+      <strong style="color:var(--navy);">Cay vừa thôi</strong> → Phet nit noi (เผ็ดนิดหน่อย)<br>
+      <strong style="color:var(--navy);">Tính tiền</strong> → Kep ngern duay (เก็บเงินด้วย)<br>
+      <strong style="color:var(--navy);">Nước lọc</strong> → Nam plao (น้ำเปล่า)<br>
+      <strong style="color:var(--navy);">Không lấy túi nilon</strong> → Mai ao tung (ไม่เอาถุง)
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">Mua sắm &amp; đi lại</div>
+    <div style="font-size:12px;line-height:2.2;color:var(--text-mid);margin-bottom:12px;">
+      <strong style="color:var(--navy);">Bao nhiêu tiền?</strong> → Tao rai? (เท่าไหร่)<br>
+      <strong style="color:var(--navy);">Đắt quá, giảm được không?</strong> → Phaeng pai, lot noi dai mai? (แพงไป ลดหน่อยได้ไหม)<br>
+      <strong style="color:var(--navy);">Nhà vệ sinh đâu?</strong> → Hong nam yoo tee nai? (ห้องน้ำอยู่ที่ไหน)<br>
+      <strong style="color:var(--navy);">Đi đến... được không?</strong> → Pai... dai mai? (ไป...ได้ไหม)<br>
+      <strong style="color:var(--navy);">Dừng ở đây</strong> → Yoot tee nee (หยุดที่นี่)
+    </div>
+
+    <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;">Số đếm (1–10)</div>
+    <div style="font-size:12px;line-height:2.1;color:var(--text-mid);margin-bottom:4px;">
+      <strong style="color:var(--navy);">1</strong> Nueng &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">2</strong> Song &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">3</strong> Sam &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">4</strong> See &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">5</strong> Ha<br>
+      <strong style="color:var(--navy);">6</strong> Hok &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">7</strong> Jet &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">8</strong> Paet &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">9</strong> Gao &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">10</strong> Sip<br>
+      <strong style="color:var(--navy);">20</strong> Yee sip &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">100</strong> Roi &nbsp;·&nbsp;
+      <strong style="color:var(--navy);">1,000</strong> Phan
+    </div>
+    <div style="font-size:11px;color:var(--text-soft);margin-top:4px;">Ví dụ: 150 baht = "Nueng roi ha sip baht" · 500 baht = "Ha roi baht"</div>
+  </div>
+</section>
+</main>
+
+<button class="fab" id="fabBtn" onclick="handleFab()">+</button>
+<div class="toast" id="toast"></div>
+
+<!-- RATE MODAL -->
+<div class="modal-overlay" id="rateModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Cập Nhật Tỷ Giá</div>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:14px;">Kiểm tra tỷ giá tại Vietcombank, Wise hoặc XE.com</p>
+    <div class="form-group">
+      <label class="form-label">1 THB = ? VND</label>
+      <input class="form-input" type="number" id="rateInput" placeholder="vd: 720">
+    </div>
+    <button class="btn btn-primary" onclick="saveRate()">Lưu Tỷ Giá</button>
+  </div>
+</div>
+
+<!-- CONTRIB MODAL -->
+<div class="modal-overlay" id="contribModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Cập Nhật Đóng Góp</div>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:14px;">Thủ quỹ: <strong>Bưởi</strong>. Chỉnh tên, số người, số đã nộp và tổng cần nộp (đơn vị: triệu VND).</p>
+    <div id="contribForm"></div>
+    <button class="btn btn-primary" onclick="saveContribs()">Lưu</button>
+  </div>
+</div>
+
+<!-- SPEND MODAL -->
+<div class="modal-overlay" id="spendModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Thêm Khoản Chi</div>
+    <div class="form-group">
+      <label class="form-label">Tên khoản chi</label>
+      <input class="form-input" id="spName" placeholder="vd: Vé máy bay, Khách sạn...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Số tiền (THB)</label>
+        <input class="form-input" type="number" id="spAmtTHB" placeholder="0" oninput="autoConvert()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Hoặc (VND)</label>
+        <input class="form-input" type="number" id="spAmtVND" placeholder="0" oninput="autoConvertBack()">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Danh mục</label>
+        <select class="form-select" id="spCat">
+          <option value="flight">Vé máy bay</option>
+          <option value="hotel">Khách sạn</option>
+          <option value="food">Ăn uống</option>
+          <option value="transport">Di chuyển</option>
+          <option value="activity">Tham quan</option>
+          <option value="shopping">Mua sắm</option>
+          <option value="other">Khác</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ngày</label>
+        <input class="form-input" type="date" id="spDate">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ghi chú</label>
+      <input class="form-input" id="spNote" placeholder="Thêm chi tiết...">
+    </div>
+    <button class="btn btn-primary" onclick="saveSpend()">Lưu Khoản Chi</button>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="eventModalTitle">Thêm Vào Lịch Trình</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Ngày</label>
+        <input class="form-input" type="date" id="evDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Thành phố</label>
+        <input class="form-input" id="evCity" placeholder="vd: Bangkok">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Giờ bắt đầu</label>
+        <input class="form-input" type="time" id="evStart">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Giờ kết thúc</label>
+        <input class="form-input" type="time" id="evEnd">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tên hoạt động</label>
+      <input class="form-input" id="evTitle" placeholder="vd: Thăm Chùa Vàng Wat Pho">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Địa điểm / Địa chỉ</label>
+      <input class="form-input" id="evPlace" placeholder="Địa chỉ để đưa tài xế">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ghi chú</label>
+      <textarea class="form-textarea" id="evNote" placeholder="Mang theo gì, lưu ý..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mã đặt chỗ (nếu có)</label>
+      <input class="form-input" id="evBooking" placeholder="vd: BK-20250512-001">
+    </div>
+    <button class="btn btn-primary" onclick="saveEvent()">Thêm Vào Lịch</button>
+  </div>
+</div>
+
+<!-- ADD PLACE MODAL -->
+<div class="modal-overlay" id="addPlaceModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Thêm Địa Điểm</div>
+    <div class="form-group">
+      <label class="form-label">Tên địa điểm</label>
+      <input class="form-input" id="plName" placeholder="vd: Khách sạn Novotel">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Loại</label>
+      <select class="form-select" id="plType">
+        <option value="hotel">Khách sạn / Lưu trú</option>
+        <option value="airport">Sân bay</option>
+        <option value="restaurant">Nhà hàng</option>
+        <option value="attraction">Tham quan</option>
+        <option value="other">Khác</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Địa chỉ (tiếng Anh + tiếng Thái nếu có)</label>
+      <textarea class="form-textarea" id="plAddr" placeholder="Địa chỉ để đưa cho tài xế taxi..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Số điện thoại</label>
+      <input class="form-input" id="plPhone" placeholder="+66...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Thành phố</label>
+      <select class="form-select" id="plCity">
+        <option value="bangkok">Bangkok</option>
+        <option value="chiangmai">Chiang Mai</option>
+        <option value="phuket">Phuket</option>
+        <option value="pattaya">Pattaya</option>
+        <option value="other">Khác</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="savePlace()">Lưu Địa Điểm</button>
+  </div>
+</div>
+
+<!-- MEMBER MODAL -->
+<div class="modal-overlay" id="memberModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Thêm Thành Viên</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Tên</label>
+        <input class="form-input" id="mbName" placeholder="Tên thành viên">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Gia đình</label>
+        <select class="form-select" id="mbFamily">
+          <option value="Huệ">Nhà Huệ</option>
+          <option value="Hà">Nhà Hà</option>
+          <option value="Huyền">Nhà Huyền</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">SĐT tại Thái (SIM local)</label>
+        <input class="form-input" id="mbPhone" placeholder="+66...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">SĐT VN / Zalo</label>
+        <input class="form-input" id="mbHome" placeholder="09xx...">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Dị ứng / Lưu ý sức khỏe</label>
+      <input class="form-input" id="mbNote" placeholder="vd: dị ứng hải sản, ăn chay...">
+    </div>
+    <button class="btn btn-primary" onclick="saveMember()">Thêm</button>
+  </div>
+</div>
+
+<!-- REC TO ITINERARY MODAL -->
+<div class="modal-overlay" id="recToItinModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Thêm Vào Lịch Trình</div>
+    <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;" id="recToItinName"></p>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Ngày</label>
+        <input class="form-input" type="date" id="rtiDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Giờ</label>
+        <input class="form-input" type="time" id="rtiTime">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Thành phố</label>
+      <input class="form-input" id="rtiCity" placeholder="vd: Bangkok">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Ghi chú thêm</label>
+      <input class="form-input" id="rtiNote" placeholder="Tùy chọn...">
+    </div>
+    <button class="btn btn-primary" onclick="saveRecToItin()">Thêm Vào Lịch</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const STORAGE_KEY = 'thai_vn_family_v1';
+let data = {
+  currency: 'VND',
+  thbToVnd: 720,
+  contributions: [
+    { family: 'Huệ', members: 3, paid: 0, total: 42 },
+    { family: 'Hà', members: 2, paid: 0, total: 24 },
+    { family: 'Huyền', members: 3, paid: 0, total: 45 },
+  ],
+  spendings: [],
+  events: [],
+  places: [
+    { name: 'Sân bay Suvarnabhumi (BKK)', type: 'airport', addr: 'Suvarnabhumi Airport, Bang Phli, Samut Prakan', phone: '+66 2 132 1888', city: 'bangkok' },
+    { name: 'Sân bay Don Mueang (DMK)', type: 'airport', addr: 'Don Mueang International Airport, Bangkok', phone: '+66 2 535 1192', city: 'bangkok' },
+  ],
+  members: [],
+  checklist: [
+    { id: 1, text: 'Hộ chiếu (còn hạn trên 6 tháng)', done: false },
+    { id: 2, text: 'Bảo hiểm du lịch quốc tế', done: false },
+    { id: 3, text: 'Đổi tiền Baht trước khi đi', done: false },
+    { id: 4, text: 'Kem chống nắng SPF 50+', done: false },
+    { id: 5, text: 'Thuốc chống muỗi DEET', done: false },
+    { id: 6, text: 'Sạc đa năng / adapter Type A', done: false },
+    { id: 7, text: 'Thuốc cá nhân & bộ sơ cứu', done: false },
+    { id: 8, text: 'Quần áo kín khi thăm chùa', done: false },
+    { id: 9, text: 'Tai nghe + pin dự phòng', done: false },
+    { id: 10, text: 'Tải Google Maps offline Thái Lan', done: false },
+    { id: 11, text: 'Mua SIM du lịch Thái hoặc eSIM', done: false },
+    { id: 12, text: 'Cài Grab Thái (đặt xe)', done: false },
+  ],
+  notes: ''
+};
+
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+function load() {
+  const s = localStorage.getItem(STORAGE_KEY);
+  if (s) { try { data = { ...data, ...JSON.parse(s) }; } catch(e) {} }
+}
+load();
+
+// ============================================================
+// UTILS
+// ============================================================
+function fmt(n, cur) {
+  cur = cur || data.currency;
+  if (cur === 'VND') return Math.round(n).toLocaleString('vi-VN') + '₫';
+  return Math.round(n).toLocaleString() + '฿';
+}
+function thbToDisplay(thb) {
+  if (data.currency === 'THB') return thb;
+  return thb * data.thbToVnd;
+}
+function vndToDisplay(vnd) {
+  if (data.currency === 'VND') return vnd;
+  return vnd / data.thbToVnd;
+}
+// Contributions stored as million VND
+function milVndToDisplay(mil) {
+  if (data.currency === 'VND') return (mil * 1000000).toLocaleString('vi-VN') + '₫';
+  const thb = (mil * 1000000) / data.thbToVnd;
+  return Math.round(thb).toLocaleString() + '฿';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); }));
+
+// ============================================================
+// TAB & CURRENCY
+// ============================================================
+let currentTab = 'fund';
+function switchTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + tab).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  currentTab = tab;
+  const hideFab = tab === 'family' || tab === 'recs' || tab === 'map';
+  document.getElementById('fabBtn').style.display = hideFab ? 'none' : '';
+  if (tab === 'recs') renderRecs();
+  if (tab === 'map') renderMapPlaces();
+}
+
+function setCurrency(cur) {
+  data.currency = cur;
+  document.getElementById('btnTHB').classList.toggle('active', cur === 'THB');
+  document.getElementById('btnVND').classList.toggle('active', cur === 'VND');
+  save(); renderAll();
+}
+
+function handleFab() {
+  if (currentTab === 'fund') openAddSpend();
+  else if (currentTab === 'itinerary') {
+    editingEventId = null;
+    document.getElementById('eventModalTitle').textContent = 'Thêm Vào Lịch Trình';
+    document.getElementById('evDate').value = new Date().toISOString().split('T')[0];
+    ['evTitle','evCity','evPlace','evNote','evBooking','evStart','evEnd'].forEach(id => document.getElementById(id).value = '');
+    openModal('eventModal');
+  }
+}
+
+// ============================================================
+// RENDER ALL
+// ============================================================
+function renderAll() {
+  renderFund();
+  renderItinerary();
+  renderMapPlaces();
+  renderMembers();
+  renderChecklist();
+  document.getElementById('sharedNotes').value = data.notes || '';
+  document.getElementById('rateDisplay').textContent = `1 THB = ${data.thbToVnd.toLocaleString()} VND`;
+  document.getElementById('btnTHB').classList.toggle('active', data.currency === 'THB');
+  document.getElementById('btnVND').classList.toggle('active', data.currency === 'VND');
+}
+
+// ============================================================
+// FUND
+// ============================================================
+function renderFund() {
+  // Totals in million VND
+  const totalMil = data.contributions.reduce((s, c) => s + c.total, 0);
+  const paidMil = data.contributions.reduce((s, c) => s + c.paid, 0);
+  const shortMil = totalMil - paidMil;
+
+  // Total spent — convert everything to VND millions
+  const spentMil = data.spendings.reduce((s, sp) => {
+    if (sp.amtVND) return s + sp.amtVND / 1e6;
+    if (sp.amtTHB) return s + (sp.amtTHB * data.thbToVnd) / 1e6;
+    return s;
+  }, 0);
+  const balanceMil = paidMil - spentMil;
+
+  document.getElementById('heroAmt').textContent = milVndToDisplay(totalMil).replace('₫','').replace('฿','');
+  document.getElementById('heroCur').textContent = data.currency === 'VND' ? 'VND ' : 'THB ';
+  document.getElementById('heroCollected').textContent = milVndToDisplay(paidMil);
+  document.getElementById('heroShortfall').textContent = milVndToDisplay(shortMil);
+  document.getElementById('heroSpent').textContent = milVndToDisplay(spentMil);
+  const balEl = document.getElementById('heroBalance');
+  balEl.textContent = milVndToDisplay(Math.abs(balanceMil)) + (balanceMil < 0 ? ' (âm)' : '');
+  balEl.style.color = balanceMil < 0 ? '#fca5a5' : '#86efac';
+  document.getElementById('heroSub').textContent = `Thủ quỹ: Bưởi · ${data.thbToVnd.toLocaleString()} VND = 1 THB`;
+
+  // Contribution rows
+  const colors = ['#c9a84c', '#2563eb', '#1a6645'];
+  document.getElementById('contribRows').innerHTML = data.contributions.map((c, i) => {
+    const pct = c.total > 0 ? Math.min((c.paid / c.total) * 100, 100) : 0;
+    const done = c.paid >= c.total;
+    const statusClass = done ? 'status-done' : c.paid > 0 ? 'status-partial' : 'status-pending';
+    const statusText = done ? 'Đủ' : c.paid > 0 ? 'Còn thiếu' : 'Chưa góp';
+    return `<div class="contrib-row">
+      <div>
+        <div class="contrib-family">Nhà ${c.family}</div>
+        <div class="contrib-sub">${c.members} người</div>
+      </div>
+      <div class="contrib-bar-wrap">
+        <div class="contrib-bar"><div class="contrib-fill" style="width:${pct}%;background:${colors[i]}"></div></div>
+        <div class="contrib-amounts">
+          <span class="paid">${c.paid}M</span><span class="total"> / ${c.total}M VND</span>
+        </div>
+      </div>
+      <span class="contrib-status ${statusClass}">${statusText}</span>
+    </div>`;
+  }).join('');
+
+  // Spending
+  const catMeta = { flight:'Vé máy bay', hotel:'Khách sạn', food:'Ăn uống', transport:'Di chuyển', activity:'Tham quan', shopping:'Mua sắm', other:'Khác' };
+  const catIcon = { flight:'✈', hotel:'🏨', food:'🍜', transport:'🚕', activity:'🗺', shopping:'🛍', other:'📋' };
+  document.getElementById('spendCount').textContent = data.spendings.length;
+
+  const list = document.getElementById('spendingList');
+  if (data.spendings.length === 0) {
+    list.innerHTML = '<div class="empty">Chưa có khoản chi nào.<br>Nhấn + để ghi lại (vé máy bay, khách sạn...)</div>';
+  } else {
+    list.innerHTML = [...data.spendings].reverse().map((s, ri) => {
+      const i = data.spendings.length - 1 - ri;
+      const mainAmt = s.amtTHB ? fmt(thbToDisplay(s.amtTHB)) : fmt(vndToDisplay(s.amtVND));
+      const subAmt = s.amtTHB ? `(${(s.amtTHB * data.thbToVnd / 1e6).toFixed(2)}M VND)` : `(${(s.amtVND/data.thbToVnd).toFixed(0)} THB)`;
+      return `<div class="spending-item">
+        <div class="spending-cat">${catIcon[s.cat] || '📋'}</div>
+        <div class="spending-info">
+          <div class="spending-name">${s.name}</div>
+          <div class="spending-meta">${catMeta[s.cat] || s.cat}${s.date ? ' · ' + s.date : ''}</div>
+          ${s.note ? `<div class="spending-note">${s.note}</div>` : ''}
+        </div>
+        <div class="spending-amount">
+          <div class="main-amt">${mainAmt}</div>
+          <div class="sub-amt">${subAmt}</div>
+        </div>
+        <button class="del-btn" onclick="deleteSpend(${i})">×</button>
+      </div>`;
+    }).join('');
+  }
+}
+
+function openAddSpend() {
+  document.getElementById('spDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('spAmtTHB').value = '';
+  document.getElementById('spAmtVND').value = '';
+  document.getElementById('spName').value = '';
+  document.getElementById('spNote').value = '';
+  openModal('spendModal');
+}
+
+function autoConvert() {
+  const thb = parseFloat(document.getElementById('spAmtTHB').value);
+  if (!isNaN(thb)) document.getElementById('spAmtVND').value = Math.round(thb * data.thbToVnd);
+  else document.getElementById('spAmtVND').value = '';
+}
+function autoConvertBack() {
+  const vnd = parseFloat(document.getElementById('spAmtVND').value);
+  if (!isNaN(vnd)) document.getElementById('spAmtTHB').value = Math.round(vnd / data.thbToVnd);
+  else document.getElementById('spAmtTHB').value = '';
+}
+
+function saveSpend() {
+  const name = document.getElementById('spName').value.trim();
+  const thb = parseFloat(document.getElementById('spAmtTHB').value);
+  const vnd = parseFloat(document.getElementById('spAmtVND').value);
+  if (!name || (isNaN(thb) && isNaN(vnd))) { showToast('Nhập tên và số tiền!'); return; }
+  data.spendings.push({
+    id: Date.now(), name,
+    amtTHB: isNaN(thb) ? null : thb,
+    amtVND: isNaN(vnd) ? null : vnd,
+    cat: document.getElementById('spCat').value,
+    date: document.getElementById('spDate').value,
+    note: document.getElementById('spNote').value
+  });
+  save(); renderFund(); closeModal('spendModal');
+  showToast('Đã thêm khoản chi!');
+}
+
+function deleteSpend(i) {
+  if (!confirm('Xóa khoản chi này?')) return;
+  data.spendings.splice(i, 1);
+  save(); renderFund();
+}
+
+// Contributions modal
+function openContribModal() {
+  document.getElementById('contribForm').innerHTML = data.contributions.map((c, i) => `
+    <div style="padding:14px 0;border-bottom:1px solid var(--border);">
+      <div style="font-weight:700;margin-bottom:10px;color:var(--navy);">Gia đình ${i+1}</div>
+      <div class="form-row" style="margin-bottom:0;">
+        <div class="form-group">
+          <label class="form-label">Tên gia đình</label>
+          <input class="form-input" id="cfamily_${i}" value="${c.family}" placeholder="vd: Huệ">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Số người</label>
+          <input class="form-input" type="number" id="cmembers_${i}" value="${c.members}" placeholder="vd: 3" min="1">
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:0;">
+        <div class="form-group">
+          <label class="form-label">Đã nộp (triệu VND)</label>
+          <input class="form-input" type="number" id="cpaid_${i}" value="${c.paid}" placeholder="vd: 42" step="0.5">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tổng cần nộp (triệu VND)</label>
+          <input class="form-input" type="number" id="ctotal_${i}" value="${c.total}" placeholder="vd: 42" step="0.5">
+        </div>
+      </div>
+    </div>`).join('');
+  openModal('contribModal');
+}
+
+// (contrib modal button wired directly in HTML)
+
+function saveContribs() {
+  data.contributions.forEach((c, i) => {
+    c.family = document.getElementById(`cfamily_${i}`).value.trim() || c.family;
+    c.members = parseInt(document.getElementById(`cmembers_${i}`).value) || c.members;
+    c.paid = parseFloat(document.getElementById(`cpaid_${i}`).value) || 0;
+    c.total = parseFloat(document.getElementById(`ctotal_${i}`).value) || c.total;
+  });
+  save(); renderFund(); closeModal('contribModal');
+  showToast('Đã cập nhật đóng góp!');
+}
+
+function saveRate() {
+  const r = parseFloat(document.getElementById('rateInput').value);
+  if (isNaN(r) || r <= 0) { showToast('Nhập tỷ giá hợp lệ!'); return; }
+  data.thbToVnd = r;
+  save(); renderAll(); closeModal('rateModal');
+  showToast('Đã cập nhật tỷ giá!');
+}
+
+// ============================================================
+// ITINERARY
+// ============================================================
+function renderItinerary() {
+  const container = document.getElementById('itineraryView');
+  if (data.events.length === 0) {
+    container.innerHTML = '<div class="empty">Chưa có lịch trình.<br>Nhấn + để thêm hoặc chọn từ tab Gợi Ý.</div>';
+    return;
+  }
+  const sorted = [...data.events].sort((a, b) => {
+    const da = a.date + (a.startTime || '00:00');
+    const db = b.date + (b.startTime || '00:00');
+    return da < db ? -1 : 1;
+  });
+  const byDay = {};
+  sorted.forEach(e => {
+    if (!byDay[e.date]) byDay[e.date] = { city: e.city, events: [] };
+    byDay[e.date].events.push(e);
+  });
+
+  container.innerHTML = Object.entries(byDay).map(([date, { city, events }]) => {
+    const d = new Date(date + 'T12:00:00');
+    const dayLabel = d.toLocaleDateString('vi-VN', { weekday: 'long', day: 'numeric', month: 'numeric' });
+    const evHtml = events.map(e => {
+      const eid = String(e.id);
+      return `<div class="event-row" id="evrow-${eid}">
+        <div class="event-time">${e.startTime || ''}${e.endTime ? '<br><span style="color:var(--text-soft);font-size:10px;">' + e.endTime + '</span>' : ''}</div>
+        <div class="event-line"><div class="event-dot"></div><div class="event-vline"></div></div>
+        <div class="event-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+            <div class="event-title" style="flex:1;">${e.title}</div>
+            <div style="display:flex;gap:4px;flex-shrink:0;" id="evbtns-${eid}">
+              <button class="btn btn-xs btn-outline" style="padding:3px 8px;font-size:11px;" onclick="openEditEvent('${eid}')">Sửa</button>
+              <button class="del-btn" style="font-size:18px;line-height:1;" onclick="confirmDeleteEvent('${eid}')">×</button>
+            </div>
+          </div>
+          <div id="evconfirm-${eid}" style="display:none;margin-top:8px;padding:8px 10px;background:#fff5f5;border-radius:8px;border:1px solid #fecaca;font-size:12px;color:var(--red);">
+            Xóa hoạt động này? &nbsp;
+            <button onclick="doDeleteEvent('${eid}')" style="background:var(--red);color:white;border:none;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;">Xóa</button>
+            &nbsp;
+            <button onclick="cancelDeleteEvent('${eid}')" style="background:var(--border);color:var(--text);border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;">Hủy</button>
+          </div>
+          ${e.place ? `<div class="event-place">${e.place}</div>` : ''}
+          ${e.note ? `<div class="event-note">${e.note}</div>` : ''}
+          ${e.booking ? `<div class="event-booking">Mã: ${e.booking}</div>` : ''}
+          ${e.fromRec ? `<span class="event-tag">Gợi ý</span>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="day-pill"><span>${dayLabel}</span>${city ? `<span style="font-size:11px;opacity:0.7;">${city}</span>` : ''}</div>
+      <div class="card" style="padding:12px 14px;">${evHtml}</div>`;
+  }).join('');
+}
+
+function confirmDeleteEvent(eid) {
+  document.getElementById('evconfirm-' + eid).style.display = 'block';
+}
+function cancelDeleteEvent(eid) {
+  document.getElementById('evconfirm-' + eid).style.display = 'none';
+}
+function doDeleteEvent(eid) {
+  data.events = data.events.filter(ev => String(ev.id) !== String(eid));
+  save(); renderItinerary();
+  showToast('Đã xóa!');
+}
+
+let editingEventId = null;
+
+function openEditEvent(eid) {
+  const ev = data.events.find(e => String(e.id) === String(eid));
+  if (!ev) return;
+  editingEventId = String(eid);
+  document.getElementById('eventModalTitle').textContent = 'Chỉnh Sửa Hoạt Động';
+  document.getElementById('evDate').value = ev.date || '';
+  document.getElementById('evCity').value = ev.city || '';
+  document.getElementById('evStart').value = ev.startTime || '';
+  document.getElementById('evEnd').value = ev.endTime || '';
+  document.getElementById('evTitle').value = ev.title || '';
+  document.getElementById('evPlace').value = ev.place || '';
+  document.getElementById('evNote').value = ev.note || '';
+  document.getElementById('evBooking').value = ev.booking || '';
+  openModal('eventModal');
+}
+
+function saveEvent() {
+  const date = document.getElementById('evDate').value;
+  const title = document.getElementById('evTitle').value.trim();
+  if (!date || !title) { showToast('Nhập ngày và tên hoạt động!'); return; }
+
+  if (editingEventId !== null) {
+    const idx = data.events.findIndex(e => String(e.id) === String(editingEventId));
+    if (idx !== -1) {
+      data.events[idx] = {
+        ...data.events[idx],
+        date, title,
+        city: document.getElementById('evCity').value,
+        startTime: document.getElementById('evStart').value,
+        endTime: document.getElementById('evEnd').value,
+        place: document.getElementById('evPlace').value,
+        note: document.getElementById('evNote').value,
+        booking: document.getElementById('evBooking').value,
+      };
+    }
+    editingEventId = null;
+    showToast('Đã cập nhật!');
+  } else {
+    data.events.push({
+      id: String(Date.now()), date, title,
+      city: document.getElementById('evCity').value,
+      startTime: document.getElementById('evStart').value,
+      endTime: document.getElementById('evEnd').value,
+      place: document.getElementById('evPlace').value,
+      note: document.getElementById('evNote').value,
+      booking: document.getElementById('evBooking').value,
+      fromRec: false
+    });
+    showToast('Đã thêm vào lịch trình!');
+  }
+
+  save(); renderItinerary(); closeModal('eventModal');
+  document.getElementById('eventModalTitle').textContent = 'Thêm Vào Lịch Trình';
+  ['evTitle','evCity','evPlace','evNote','evBooking','evStart','evEnd'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ============================================================
+// RECOMMENDATIONS
+// ============================================================
+const RECS = {
+  food: [
+    { name: 'Pad Thai Thip Samai', emoji: '🍜', desc: 'Pad Thai nổi tiếng nhất Bangkok, hàng 70+ năm. Phù hợp mọi độ tuổi.', tags: ['Bangkok', 'Nổi tiếng', 'Bình dân'], price: '~80-120 THB/người', place: 'Thip Samai, Maha Chai Rd, Bangkok' },
+    { name: 'Or Tor Kor Market', emoji: '🥭', desc: 'Chợ thực phẩm cao cấp, trái cây Thái tươi ngon, đồ ăn đường phố sạch sẽ.', tags: ['Bangkok', 'Chợ', 'Trái cây'], price: '~50-200 THB', place: 'Or Tor Kor Market, Kamphaeng Phet Rd' },
+    { name: 'Boat Noodles Ayutthaya', emoji: '🍲', desc: 'Mì thuyền truyền thống, ăn kèm nem chiên. Giá rẻ, ngon, phù hợp nhóm đông.', tags: ['Bangkok', 'Truyền thống', 'Rẻ'], price: '~15-25 THB/tô' },
+    { name: 'Mango Sticky Rice', emoji: '🍚', desc: 'Xôi xoài - món tráng miệng không thể bỏ qua. Mùa xoài tháng 5 là ngon nhất!', tags: ['Tráng miệng', 'Mùa hè'], price: '~60-80 THB' },
+    { name: 'Nhuệ Giang Seafood (Phuket)', emoji: '🦞', desc: 'Hải sản tươi sống, view biển, giá hợp lý. Rất phù hợp đi nhóm gia đình.', tags: ['Phuket', 'Hải sản', 'Gia đình'], price: '~300-600 THB/người', place: 'Rawai Seafood Market, Phuket' },
+    { name: 'Khao Soi Chiang Mai', emoji: '🍛', desc: 'Cà ri mì trứng đặc trưng Chiang Mai. Béo ngậy, thơm, khác hoàn toàn đồ ăn miền Nam.', tags: ['Chiang Mai', 'Đặc sản', 'Mì'], price: '~60-90 THB', place: 'Khao Soi Khun Yai, Chiang Mai' },
+    { name: 'Chatuchak Weekend Market', emoji: '🥘', desc: 'Đồ ăn đường phố cực kỳ đa dạng trong khu chợ lớn nhất Thái. Ăn + mua sắm kết hợp.', tags: ['Bangkok', 'Đường phố', 'Cuối tuần'], price: '~50-150 THB' },
+    { name: 'Somtum (Gỏi đu đủ)', emoji: '🥗', desc: 'Gỏi đu đủ cay Thái - thanh mát, chua ngọt. Nhớ dặn "không cay" (mai phet)!', tags: ['Phổ biến', 'Salad Thái'], price: '~50-80 THB' },
+  ],
+  attraction: [
+    { name: 'Wat Pho - Chùa Phật Nằm', emoji: '🛕', desc: 'Ngôi chùa đẹp nhất Bangkok với tượng Phật vàng 46m. Mặc kín khi vào.', tags: ['Bangkok', 'Văn hóa', 'Bắt buộc'], price: '100 THB/người', place: 'Wat Pho, 2 Sanam Chai Rd, Bangkok' },
+    { name: 'Grand Palace - Cung điện Hoàng gia', emoji: '🏯', desc: 'Kiến trúc tuyệt vời, hàng thế kỷ lịch sử. Đặt tour sáng sớm tránh đông.', tags: ['Bangkok', 'Lịch sử', 'Nổi tiếng'], price: '500 THB/người', place: 'Grand Palace, Na Phra Lan Rd, Bangkok' },
+    { name: 'Doi Inthanon - Chiang Mai', emoji: '🏔️', desc: 'Đỉnh núi cao nhất Thái Lan, thác nước đẹp, khí hậu mát mẻ. Đi xe máy hoặc thuê xe.', tags: ['Chiang Mai', 'Thiên nhiên', 'Leo núi'], price: '~300 THB/người' },
+    { name: 'Phi Phi Island - Phuket', emoji: '🏝️', desc: 'Đảo đẹp nhất vùng Andaman, nước trong xanh, rặng san hô. Book tour sớm!', tags: ['Phuket', 'Biển', 'Bắt buộc'], price: '~1,000-1,500 THB/người' },
+    { name: 'Wat Arun - Chùa Bình Minh', emoji: '✨', desc: 'Ngôi chùa tuyệt đẹp bên sông Chao Phraya. Chụp ảnh lúc hoàng hôn cực đẹp.', tags: ['Bangkok', 'Chụp ảnh', 'Sông'], price: '100 THB/người', place: 'Wat Arun, Arun Amarin Rd, Bangkok' },
+    { name: 'Elephant Nature Park', emoji: '🐘', desc: 'Khu bảo tồn voi đạo đức tại Chiang Mai. Cho voi ăn, tắm voi - trải nghiệm đời người.', tags: ['Chiang Mai', 'Động vật', 'Gia đình'], price: '~2,500 THB/người' },
+    { name: 'Floating Market Damnoen Saduak', emoji: '🛶', desc: 'Chợ nổi truyền thống, thuyền bán đồ ăn trên kênh. Đi sáng sớm để tránh đông.', tags: ['Bangkok', 'Truyền thống', 'Chụp ảnh'], price: '~200-400 THB' },
+    { name: 'Big Buddha - Phuket', emoji: '🏛️', desc: 'Tượng Phật trắng 45m nhìn ra toàn đảo Phuket. Miễn phí, đi lúc chiều mát.', tags: ['Phuket', 'Văn hóa', 'Miễn phí'], price: 'Miễn phí', place: 'Big Buddha, Nakkerd Hills, Phuket' },
+  ],
+  activity: [
+    { name: 'Massage Thái truyền thống', emoji: '💆', desc: '1 tiếng massage Thái cả nhóm - giải mỏi sau ngày đi bộ nhiều. Phù hợp mọi độ tuổi.', tags: ['Tất cả thành phố', 'Thư giãn', 'Rẻ'], price: '~250-400 THB/tiếng' },
+    { name: 'Lớp nấu ăn Thái', emoji: '👨‍🍳', desc: 'Học nấu Pad Thai, Tom Yum, Som Tum. Vui nhộn cho cả nhà, về nhà nấu được luôn!', tags: ['Bangkok/CM', 'Trải nghiệm', 'Gia đình'], price: '~1,000-1,500 THB/người' },
+    { name: 'Chương trình Muay Thai', emoji: '🥊', desc: 'Xem đấu Muay Thai buổi tối - kịch tính, hào hứng. Lớn nhỏ đều thích.', tags: ['Bangkok', 'Thể thao', 'Tối'], price: '~1,500-2,000 THB' },
+    { name: 'Snorkeling tại Phuket', emoji: '🤿', desc: 'Lặn biển ngắm san hô quanh đảo Coral hoặc Racha. Cần biết bơi cơ bản.', tags: ['Phuket', 'Biển', 'Phiêu lưu'], price: '~800-1,500 THB' },
+    { name: 'Night Safari Chiang Mai', emoji: '🦒', desc: 'Sở thú về đêm - xem động vật hoạt động tự nhiên. Trẻ em và người lớn đều mê.', tags: ['Chiang Mai', 'Gia đình', 'Tối'], price: '~500-700 THB' },
+    { name: 'Lễ thả đèn trời (Yi Peng)', emoji: '🏮', desc: 'Nếu đi Chiang Mai đúng mùa, trải nghiệm độc nhất vô nhị. Hỏi lịch trước!', tags: ['Chiang Mai', 'Lễ hội', 'Đặc biệt'], price: '~150-200 THB/đèn' },
+    { name: 'Zipline - Flight of the Gibbon', emoji: '🌿', desc: 'Trượt dây qua rừng nhiệt đới Chiang Mai. Phù hợp người 10-70 tuổi, an toàn cao.', tags: ['Chiang Mai', 'Mạo hiểm', 'Tất cả tuổi'], price: '~3,000-4,000 THB' },
+  ],
+  shopping: [
+    { name: 'Chatuchak Weekend Market', emoji: '🏪', desc: 'Chợ trời lớn nhất thế giới, 8,000+ gian hàng. Quần áo, đồ thủ công, đồ cổ. Thứ 7-CN.', tags: ['Bangkok', 'Cuối tuần', 'Khổng lồ'], price: 'Miễn phí vào', place: 'Chatuchak Market, Bangkok' },
+    { name: 'ICON Siam', emoji: '🏬', desc: 'Trung tâm thương mại cao cấp bên sông Chao Phraya. Có Siam Takashimaya + floating market trong nhà.', tags: ['Bangkok', 'Cao cấp', 'Có điều hòa'], price: 'Miễn phí vào', place: 'ICON Siam, Charoen Nakhon Rd, Bangkok' },
+    { name: 'MBK Center', emoji: '🛍️', desc: 'Thiên đường đồ điện tử, quần áo giá rẻ, đồ lưu niệm. Mặc cả được.', tags: ['Bangkok', 'Điện tử', 'Rẻ'], price: 'Miễn phí vào', place: 'MBK Center, Phaya Thai Rd, Bangkok' },
+    { name: 'Chợ đêm Chiang Mai (Sunday Walking Street)', emoji: '🌙', desc: 'Chợ đêm Chủ Nhật - thủ công mỹ nghệ, vải lụa, đồ bạc địa phương đẹp.', tags: ['Chiang Mai', 'Chủ nhật', 'Thủ công'], price: 'Miễn phí', place: 'Walking Street, Wualai Rd, Chiang Mai' },
+    { name: 'Đồ lưu niệm cần mua', emoji: '🎁', desc: 'Dầu gió truyền thống, sữa dưỡng thể Thái, xà phòng thảo mộc, kẹo mè đen, trà Thái.', tags: ['Mọi nơi', 'Quà về'], price: 'Tùy loại' },
+    { name: 'Asiatique The Riverfront', emoji: '🎡', desc: 'Khu mua sắm ngoài trời ven sông, có vòng đu quay. Tối đẹp, có nhà hàng ngon.', tags: ['Bangkok', 'Tối', 'Ven sông'], price: 'Miễn phí vào', place: 'Asiatique, Charoen Krung Rd, Bangkok' },
+  ]
+};
+
+let currentRecTab = 'food';
+function setRecTab(tab) {
+  currentRecTab = tab;
+  document.querySelectorAll('.rec-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderRecs();
+}
+
+function renderRecs() {
+  const items = RECS[currentRecTab] || [];
+  document.getElementById('recList').innerHTML = items.map((r, i) => `
+    <div class="rec-item">
+      <div class="rec-emoji">${r.emoji}</div>
+      <div class="rec-info">
+        <div class="rec-name">${r.name}</div>
+        <div class="rec-desc">${r.desc}</div>
+        <div class="rec-tags">${r.tags.map(t => `<span class="rec-tag">${t}</span>`).join('')}</div>
+        <div class="rec-price">${r.price}</div>
+      </div>
+      <button class="add-to-itinerary-btn" onclick="openRecToItin(${i})">+ Lịch</button>
+    </div>`).join('');
+}
+
+let pendingRec = null;
+function openRecToItin(i) {
+  pendingRec = RECS[currentRecTab][i];
+  document.getElementById('recToItinName').textContent = pendingRec.emoji + ' ' + pendingRec.name;
+  document.getElementById('rtiDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('rtiTime').value = '';
+  document.getElementById('rtiCity').value = pendingRec.tags[0] || '';
+  document.getElementById('rtiNote').value = '';
+  openModal('recToItinModal');
+}
+
+function saveRecToItin() {
+  if (!pendingRec) return;
+  const date = document.getElementById('rtiDate').value;
+  if (!date) { showToast('Chọn ngày!'); return; }
+  data.events.push({
+    id: String(Date.now()),
+    date, title: pendingRec.name,
+    city: document.getElementById('rtiCity').value,
+    startTime: document.getElementById('rtiTime').value,
+    endTime: '',
+    place: pendingRec.place || '',
+    note: pendingRec.desc + (document.getElementById('rtiNote').value ? '\n' + document.getElementById('rtiNote').value : ''),
+    booking: '',
+    fromRec: true
+  });
+  save(); renderItinerary(); closeModal('recToItinModal');
+  showToast('Đã thêm vào lịch trình!');
+  switchTab('itinerary');
+}
+
+// ============================================================
+// MAP
+// ============================================================
+const mapUrls = {
+  bangkok: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d496124.51965090846!2d100.35827715!3d13.7248937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6032280d61f3%3A0x10100b25de24820!2sBangkok!5e0!3m2!1svi!2sth!4v1700000000000!5m2!1svi!2sth',
+  chiangmai: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241984.4766938053!2d98.86119785!3d18.7882778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da3a7d5af80e6f%3A0xa669e1e8ab4f5b7d!2sChiang%20Mai!5e0!3m2!1svi!2sth!4v1700000000001',
+  phuket: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252169.94098855624!2d98.2477787!3d7.978006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x305025d387491b3d%3A0x9c8c3f7bcd45e3ca!2sPhuket!5e0!3m2!1svi!2sth!4v1700000000002',
+  pattaya: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125035.83649617388!2d100.8528737!3d12.9235557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102abb65cb4437b%3A0xfe309f4e1a697901!2sPattaya!5e0!3m2!1svi!2sth!4v1700000000003'
+};
+let currentMapCity = 'bangkok';
+function setMapCity(city) {
+  currentMapCity = city;
+  document.querySelectorAll('#mapCityTabs .rec-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('mapFrame').src = mapUrls[city] || mapUrls.bangkok;
+  renderMapPlaces();
+}
+
+const placeTypeLabel = { hotel:'Khách sạn', airport:'Sân bay', restaurant:'Nhà hàng', attraction:'Tham quan', other:'Khác' };
+const placeTypeIcon = { hotel:'🏨', airport:'✈', restaurant:'🍜', attraction:'🏛', other:'📍' };
+
+function renderMapPlaces() {
+  const cityPlaces = data.places.filter(p => p.city === currentMapCity || !p.city);
+  const allCityPlaces = [...cityPlaces];
+  const container = document.getElementById('mapPlaces');
+  if (allCityPlaces.length === 0) {
+    container.innerHTML = '<div class="empty" style="padding:16px;">Chưa có địa điểm nào ở đây.<br>Nhấn "+ Thêm địa điểm" bên dưới.</div>';
+    return;
+  }
+  container.innerHTML = allCityPlaces.map((p, i) => {
+    const realI = data.places.indexOf(p);
+    return `<div class="spending-item">
+      <div class="spending-cat" style="font-size:18px;">${placeTypeIcon[p.type] || '📍'}</div>
+      <div class="spending-info">
+        <div class="spending-name">${p.name}</div>
+        <div class="spending-meta">${placeTypeLabel[p.type] || 'Địa điểm'}</div>
+        ${p.addr ? `<div class="spending-note">${p.addr}</div>` : ''}
+        ${p.phone ? `<div style="font-size:11px;color:var(--blue);margin-top:2px;">${p.phone}</div>` : ''}
+      </div>
+      <button class="del-btn" onclick="deletePlace(${realI})">×</button>
+    </div>`;
+  }).join('');
+}
+
+function savePlace() {
+  const name = document.getElementById('plName').value.trim();
+  if (!name) { showToast('Nhập tên địa điểm!'); return; }
+  data.places.push({
+    id: Date.now(), name,
+    type: document.getElementById('plType').value,
+    addr: document.getElementById('plAddr').value,
+    phone: document.getElementById('plPhone').value,
+    city: document.getElementById('plCity').value
+  });
+  save(); renderMapPlaces(); closeModal('addPlaceModal');
+  ['plName','plAddr','plPhone'].forEach(id => document.getElementById(id).value = '');
+  showToast('Đã thêm địa điểm!');
+}
+
+function deletePlace(i) {
+  if (!confirm('Xóa địa điểm này?')) return;
+  data.places.splice(i, 1);
+  save(); renderMapPlaces();
+}
+
+// ============================================================
+// FAMILY
+// ============================================================
+function renderMembers() {
+  const familyColor = { Huệ: '#c9a84c', Hà: '#2563eb', Huyền: '#1a6645' };
+  const container = document.getElementById('memberList');
+  if (data.members.length === 0) {
+    container.innerHTML = '<div class="empty" style="padding:20px;">Chưa có thành viên. Nhấn + để thêm.</div>';
+    return;
+  }
+  container.innerHTML = data.members.map((m, i) => `
+    <div class="member-row">
+      <div class="member-avatar" style="background:${familyColor[m.family] || 'var(--navy)'};">${m.name.charAt(0)}</div>
+      <div class="member-info">
+        <div class="member-name">${m.name}</div>
+        <div class="member-family">Nhà ${m.family}</div>
+        ${m.phone ? `<div class="member-phone">${m.phone}</div>` : ''}
+        ${m.home ? `<div style="font-size:11px;color:var(--text-soft);">VN: ${m.home}</div>` : ''}
+        ${m.note ? `<div class="member-note">${m.note}</div>` : ''}
+      </div>
+      <button class="del-btn" onclick="deleteMember(${i})">×</button>
+    </div>`).join('');
+}
+
+function saveMember() {
+  const name = document.getElementById('mbName').value.trim();
+  if (!name) { showToast('Nhập tên!'); return; }
+  data.members.push({
+    id: Date.now(), name,
+    family: document.getElementById('mbFamily').value,
+    phone: document.getElementById('mbPhone').value,
+    home: document.getElementById('mbHome').value,
+    note: document.getElementById('mbNote').value
+  });
+  save(); renderMembers(); closeModal('memberModal');
+  ['mbName','mbPhone','mbHome','mbNote'].forEach(id => document.getElementById(id).value = '');
+  showToast('Đã thêm thành viên!');
+}
+
+function deleteMember(i) {
+  if (!confirm('Xóa thành viên này?')) return;
+  data.members.splice(i, 1);
+  save(); renderMembers();
+}
+
+function renderChecklist() {
+  document.getElementById('checklistEl').innerHTML = data.checklist.map((item, i) =>
+    `<div class="checklist-row ${item.done ? 'done' : ''}">
+      <input type="checkbox" id="chk_${item.id}" ${item.done ? 'checked' : ''} onchange="toggleCheck(${i})">
+      <label for="chk_${item.id}">${item.text}</label>
+      <button class="del-btn" onclick="deleteCheck(${i})">×</button>
+    </div>`).join('');
+}
+
+function toggleCheck(i) { data.checklist[i].done = !data.checklist[i].done; save(); renderChecklist(); }
+function addCheck() {
+  const t = document.getElementById('newCheckText').value.trim();
+  if (!t) return;
+  data.checklist.push({ id: Date.now(), text: t, done: false });
+  document.getElementById('newCheckText').value = '';
+  save(); renderChecklist();
+}
+function deleteCheck(i) { data.checklist.splice(i, 1); save(); renderChecklist(); }
+function saveNotes() { data.notes = document.getElementById('sharedNotes').value; save(); }
+
+// ============================================================
+// EXPORT / IMPORT
+// ============================================================
+function exportData() {
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'chuyen_thai_lan_' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  showToast('Đã xuất file! Gửi cho cả nhà qua Zalo.');
+}
+
+// Import
+const importInput = document.createElement('input');
+importInput.type = 'file'; importInput.accept = '.json';
+importInput.style.display = 'none';
+importInput.onchange = e => {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try { data = { ...data, ...JSON.parse(ev.target.result) }; save(); renderAll(); showToast('Đã nhập dữ liệu!'); }
+    catch { showToast('File không hợp lệ!'); }
+  };
+  reader.readAsText(file);
+};
+document.body.appendChild(importInput);
+
+// Add import button to family section
+const importDiv = document.createElement('div');
+importDiv.style.cssText = 'margin-bottom:14px;';
+importDiv.innerHTML = `<label style="display:flex;align-items:center;gap:10px;cursor:pointer;background:white;border-radius:12px;padding:14px 16px;border:1.5px dashed var(--border);font-size:13px;color:var(--text-soft);font-weight:600;" onclick="importInput.click()">Nhập dữ liệu từ file JSON (đồng bộ từ người khác)</label>`;
+document.getElementById('section-family').appendChild(importDiv);
+
+// ============================================================
+// RATE MODAL - prefill
+// ============================================================
+document.getElementById('rateModal').querySelector('.modal').addEventListener('click', () => {});
+const rateObs = new MutationObserver(() => {
+  if (document.getElementById('rateModal').classList.contains('open')) {
+    document.getElementById('rateInput').value = data.thbToVnd;
+  }
+});
+rateObs.observe(document.getElementById('rateModal'), { attributes: true });
+
+// ============================================================
+// BOOT
+// ============================================================
+renderAll();
+renderRecs();
+
+// Register service worker for offline + PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Inline service worker via blob so no extra file needed
+    const swCode = `
+      const CACHE = 'thai-trip-v1';
+      const ASSETS = [self.location.href.replace('sw.js',''), self.location.href.replace('sw.js','index.html')];
+      self.addEventListener('install', e => {
+        e.waitUntil(caches.open(CACHE).then(c => c.addAll([])).then(() => self.skipWaiting()));
+      });
+      self.addEventListener('activate', e => {
+        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+      });
+      self.addEventListener('fetch', e => {
+        e.respondWith(caches.match(e.request).then(cached => {
+          const fresh = fetch(e.request).then(resp => {
+            if (resp && resp.status === 200 && e.request.method === 'GET') {
+              const clone = resp.clone();
+              caches.open(CACHE).then(c => c.put(e.request, clone));
+            }
+            return resp;
+          }).catch(() => cached);
+          return cached || fresh;
+        }));
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
